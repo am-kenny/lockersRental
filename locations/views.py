@@ -1,12 +1,13 @@
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
-# Create your views here.
+
 def index(request):
     return None
 
 
-def location(request):
-    return None
+def location(request, location_slug):
+    return HttpResponseNotFound()
 
 
 def available(request):
