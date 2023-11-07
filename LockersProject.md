@@ -10,27 +10,43 @@ In this project I want:
 - Discounts system?
 
 DB:
-
-- Sites table
+- Addresses table
     - id
+    - country
     - city
     - street
-    - site_name
+    - house_number
+    - zip_code
+
+- Locations table
+    - id
+    - location name
+    - location slug
+    - address_id
+    - phone_number
+    - email
+    - description
+    - is_active
+  
 - Locker sizes table
     - id
     - width
     - height
-    - length
+    - depth
     - hourly_rate
     - size_name
+  
 - Lockers table
     - id
     - size_id
-    - site_id
-    - status_id?
+    - location_id
+    - locker_number
+    - is_available
+
 - Locker status table ?
     - id
     - status_name
+
 
 - Users table
     - id
