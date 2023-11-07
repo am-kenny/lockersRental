@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+
+{% block content %}
+
+    {% if form.errors %}
+    	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% for error in form.errors %}
+            	{{ error }}
+            {% endfor %}
+
+        </div>
+    {% endif %}
+
+    <h2>Register</h2>
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+{% endblock %}
