@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -45,3 +46,12 @@ class Locker(models.Model):
     def __str__(self):
         return f"Locker #{self.locker_number} ({self.locker_size.size_name})"
 
+
+class Rental(models.Model):
+    locker = models.ForeignKey(Locker, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def __str__(self):
+        return f"Locker #{self.locker.locker_number} ({self.locker.locker_size.size_name})"

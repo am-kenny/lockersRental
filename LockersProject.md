@@ -47,6 +47,12 @@ DB:
     - id
     - status_name
 
+- Rental table
+    - Start time
+    - End time
+    - user_id
+    - locker_id
+
 
 - Users table
     - id
@@ -54,12 +60,21 @@ DB:
     - username
     - mobile_phone
 - User billing address
+    - id
+    - country
+    - city
+    - street
+    - house_number
+    - zip_code
 - User billing info
-- UserLocker table
-    - Start time
-    - End time
+    - id
     - user_id
-    - locker_id
+    - billing_address_id
+    - card_number
+    - card_holder
+    - card_expiration_date
+    - card_cvv
+
 
 Endpoints:
 
