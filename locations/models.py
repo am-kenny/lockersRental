@@ -21,6 +21,7 @@ class Location(models.Model):
     email = models.EmailField(max_length=255)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
+    API_URL = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.location_name} ({self.location_slug})"
