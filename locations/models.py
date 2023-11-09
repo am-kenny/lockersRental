@@ -41,7 +41,7 @@ class LockerSize(models.Model):
 class Locker(models.Model):
     locker_size = models.ForeignKey(LockerSize, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    locker_number = models.IntegerField(unique=True)
+    locker_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
