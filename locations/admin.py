@@ -53,12 +53,21 @@ def sync_location_lockers(request, pk):
         lockers = response.json()
         for locker in lockers:
             size = models.LockerSize.objects.get(id=locker["locker_size"])
-            models.Locker.objects.update_or_create(
-                locker_size=size,
-                location=location,
-                locker_number=locker["locker_number"],
-                is_available=True
-            )
+            locker_query = models.Locker.objects.filter(locker_number=locker["locker_number"], location=location)
+            if locker_query.exists():
+                locker_query.update(
+                    locker_size=size,
+                    location=location,
+                    locker_number=locker["locker_number"],
+                    is_available=True
+                )
+            else:
+                models.Locker.objects.create(
+                    locker_size=size,
+                    location=location,
+                    locker_number=locker["locker_number"],
+                    is_available=True
+                )
         return redirect("admin:location_lockers", pk=pk)
     return HttpResponse(status=500)
 
