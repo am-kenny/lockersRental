@@ -14,7 +14,7 @@
         <tbody>
         {% for locker in object.locker_set.all %}        
              <tr>
-                <td>{{ locker.locker_number }}</td>
+                <td><a href="{% url 'admin:locations_locker_change' object_id=locker.id %}">{{ locker.locker_number }}</a></td>
                 <td>{{ locker.locker_size }}</td>
                 {% if locker.is_available %}
                     <td style="color: green">Available</td>
