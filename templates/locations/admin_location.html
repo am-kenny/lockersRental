@@ -1,0 +1,32 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <h1>{{ object.location_name }} Lockers synchronisation</h1>
+
+
+    <table style="width: 100%; margin-bottom: 10px;">
+        <thead>
+            <tr>
+                <th>Locker number</th>
+                <th>Locker size</th>
+                <th>Is available</th>
+            </tr>
+        <tbody>
+        {% for locker in object.locker_set.all %}        
+             <tr>
+                <td>{{ locker.locker_number }}</td>
+                <td>{{ locker.locker_size }}</td>
+                {% if locker.is_available %}
+                    <td style="color: green">Available</td>
+                {% else %}
+                    <td style="color: red">Occupied</td>
+                {% endif %}"
+             </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{% url 'admin:sync_location_lockers' pk=object.id%}">Sync</a>
+    
+{% endblock %}
