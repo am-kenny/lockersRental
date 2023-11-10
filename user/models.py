@@ -4,10 +4,15 @@ from django.db import models
 
 class UserBillingAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    state = models.CharField(max_length=2)
+    street = models.CharField(max_length=255)
+    house_number = models.CharField(max_length=255)
     zip_code = models.CharField(max_length=5)
+
+    def __str__(self):
+        return f"{self.street}, {self.city}, {self.zip_code}"
 
 
 class UserBillingInfo(models.Model):
@@ -16,3 +21,6 @@ class UserBillingInfo(models.Model):
     expiration_date = models.DateField()
     cvv = models.CharField(max_length=3)
     billing_address = models.ForeignKey(UserBillingAddress, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.card_number} ({self.user.username})"
