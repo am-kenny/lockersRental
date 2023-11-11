@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}User billing{% endblock %}
+
+{% block content %}
+
+<div class="shadow-sm bg-white p-4 h-100">
+    <div class="tab-content">
+        <div class="tab-pane fade  active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+            <h4 class="font-weight-bold mt-0 mb-4">Manage Billing</h4>
+            <div class="d-flex flex-wrap">
+                {% for user_billing in user_billings %}
+                    <div class="col-md-6">
+                        <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                            <div class="gold-members p-4">
+                                <div class="media">
+                                    <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                    <div class="media-body">
+                                        {% if user_billing.id == edit_billing%}
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    {{ edit_form }}
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="btn btn-primary" type="submit" value="Save">
+                                                </div>
+                                            </form>
+                                                <a class="btn btn-secondary" href="{% url 'billing_address' %}">Cancel</a>
+                                        {% else %}
+                                            <h2>Card</h2>
+                                        	<p>{{ user_billing.card_number }}</p>
+                                        	<p>Year: {{ user_billing.expiration_year }}</p>
+                                        	<p>Month: {{ user_billing.expiration_month }}</p>
+                                        	<p>{{ user_billing.billing_address }}</p>
+                                            <p class="mb-0 text-black font-weight-bold">
+                                            <a class="text-primary mr-3" href="{% url 'billing' %}?edit_billing={{ user_billing.id }}">
+                                                <i class="icofont-ui-edit"></i> EDIT
+                                            </a>
+                                            <a class="text-danger" href="{% url 'delete_billing_address' billing_address_id=user_billing.id %}">
+                                                <i class="icofont-ui-delete"></i> DELETE
+                                            </a>
+                                        {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="shadow-sm bg-white p-4">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

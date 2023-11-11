@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}User billing addresses{% endblock %}
+
+{% block content %}
+
+<div class="shadow-sm bg-white p-4 h-100">
+    <div class="tab-content">
+        <div class="tab-pane fade  active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+            <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+            <div class="d-flex flex-wrap">
+                {% for user_address in user_addresses %}
+                    <div class="col-md-6">
+                        <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                            <div class="gold-members p-4">
+                                <div class="media">
+                                    <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                    <div class="media-body">
+                                        {% if user_address.id == edit_address%}
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    {{ edit_form }}
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="btn btn-primary" type="submit" value="Save">
+                                                </div>
+                                            </form>
+                                                <a class="btn btn-secondary" href="{% url 'billing_address' %}">Cancel</a>
+                                        {% else %}
+                                        	<p>{{ user_address.country }}</p>
+                                            <p>{{ user_address.state }}</p>
+                                            <p>{{ user_address.city }}</p>
+                                            <p>{{ user_address.street }}</p>
+                                            <p>{{ user_address.house_number }}</p>
+                                            <p>{{ user_address.zip_code }}</p>
+                                            <p class="mb-0 text-black font-weight-bold">
+                                            <a class="text-primary mr-3" href="{% url 'billing_address' %}?edit_address={{ user_address.id }}">
+                                            <i class="icofont-ui-edit"></i> EDIT
+                                            </a>
+                                            <a class="text-danger" href="{% url 'delete_billing_address' billing_address_id=user_address.id %}">
+                                                <i class="icofont-ui-delete"></i> DELETE
+                                            </a>
+                                        {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="shadow-sm bg-white p-4">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
