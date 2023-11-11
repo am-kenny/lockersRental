@@ -18,7 +18,8 @@ class UserBillingAddress(models.Model):
 class UserBillingInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card_number = models.CharField(max_length=16)
-    expiration_date = models.DateField()
+    expiration_year = models.IntegerField()
+    expiration_month = models.IntegerField()
     cvv = models.CharField(max_length=3)
     billing_address = models.ForeignKey(UserBillingAddress, on_delete=models.CASCADE)
 
