@@ -37,7 +37,7 @@
                                             <a class="text-primary mr-3" href="{% url 'billing' %}?edit_billing={{ user_billing.id }}">
                                                 <i class="icofont-ui-edit"></i> EDIT
                                             </a>
-                                            <a class="text-danger" href="{% url 'delete_billing_address' billing_address_id=user_billing.id %}">
+                                            <a class="text-danger" href="{% url 'delete_billing' billing_id=user_billing.id %}">
                                                 <i class="icofont-ui-delete"></i> DELETE
                                             </a>
                                         {% endif %}
