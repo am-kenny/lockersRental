@@ -33,8 +33,16 @@ def select_locker(request, location_slug, locker_size_id):
     error = None
 
     if request.method == 'POST' and is_available:
-        if not request.user.userbillinginfo_set.exists():
-            error = "You need to add billing info first"
+        if not request.user.is_authenticated:
+            error = {
+                "message": "You need to be logged in to rent a locker",
+                "code": "login_required"
+            }
+        elif not request.user.userbillinginfo_set.exists():
+            error = {
+                "message": "You need to add billing information to rent a locker",
+                "code": "billing_info_required"
+            }
         else:
             locker_to_rent = locker_query.first()
             rental = locations.models.Rental.objects.create(locker=locker_to_rent,

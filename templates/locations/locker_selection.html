@@ -17,9 +17,15 @@
         <p style="color: red">No available lockers of this size at location</p>
     {% endif %}
     {% if error %}
-    	{{ error }}
+    	{{ error.message }}
+        {% if error.code == "billing_info_required" %}
         <a class="text-primary mr-3" href="{% url 'billing' %}">
             <i class="icofont-ui-edit"></i> Add billing info
         </a>
+        {% elif error.code == "login_required" %}
+        <a class="text-primary mr-3" href="{% url 'login' %}">
+            <i class="icofont-ui-edit"></i> Login
+        </a>
+        {% endif %}
     {% endif %}
 {% endblock %}
