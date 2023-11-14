@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Locations{% endblock %}
+
+{% block content %}
+    <h1>Locations</h1>
+    {% for location in locations %}
+    	<p>{{ location.location_name }}</p>
+
+        <a href="{% url "location" location_slug=location.location_slug%}">Select</a>
+    {% endfor %}
+    
+{% endblock %}

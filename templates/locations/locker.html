@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Locker{% endblock %}
+
+{% block content %}
+    <h1>Locker № {{ locker.locker_number }}</h1>
+    <p>Location: {{ locker.location }}</p>
+    <p>Status: 
+    {% if locker.is_locked %}
+    	<span style="color: red">Locked</span>
+    {% else %}
+        <span style="color: green">Unlocked</span>
+    {% endif %} 
+    </p>
+    <a href="{% url 'close_locker' location_slug=locker.location.location_slug locker_id=locker.id%}">Close</a>
+    <a href="{% url 'open_locker'  location_slug=locker.location.location_slug locker_id=locker.id%}">Open</a>
+    
+    {#    <h1>Locker</h1>#}
+{#    <p>Locker is a simple password manager.</p>#}
+{#    <p>It is a work in progress.</p>#}
+{#    <p>It is not ready for production.</p>#}
+{#    <p>It is not ready for testing.</p>#}
+{#    <p>It is not ready for anything.</p>#}
+{#    <p>It is not ready.</p>#}
+{#    <p>It is not.</p>#}
+{#    <p>It is.</p>#}
+{#    <p>It.</p>#}
+{#    <p>.</p>#}
+{#    <p>It is not ready.</p>#}
+{#    <p>It is not ready for anything.</p>#}
+{#    <p>It is not ready for testing.</p>#}
+{#    <p>It is not ready for production.</p>#}
+{#    <p>It is a work in progress.</p>#}
+{#    <p>Locker is a simple password manager.</p>#}
+{#    <p>Locker</p>#}
+{% endblock %}

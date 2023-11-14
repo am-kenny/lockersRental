@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Selection{% endblock %}
+
+{% block content %}
+    <h1>Locker selection</h1>
+    <p>Location: {{ location }}</p>
+    <p>Locker type: {{ locker_size }}</p>
+    <p>Hourly rate: {{ locker_size.hourly_rate}}	&euro;/hour</p>
+    {% if is_available %}
+        <p style="color: green">Available</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Select">
+        </form>
+    {% else %}
+        <p style="color: red">No available lockers of this size at location</p>
+    {% endif %}
+    {% if error %}
+    	{{ error }}
+        <a class="text-primary mr-3" href="{% url 'billing' %}">
+            <i class="icofont-ui-edit"></i> Add billing info
+        </a>
+    {% endif %}
+{% endblock %}

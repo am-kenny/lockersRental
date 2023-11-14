@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ location.location_name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ location.location_name }}</h1>
+    <p>{{ location.description }}</p>
+    <p>{{ location.address }}</p>
+    
+    <table style="width: 100%; margin-bottom: 10px;">
+        <thead>
+            <tr>
+                <th>Locker size</th>
+                <th>Hourly rate</th>
+                <th>Is available</th>
+                <th></th>
+            </tr>
+        <tbody>
+        {% for locker in locker_types %}        
+             <tr>
+                <td>{{ locker.locker_size }}</td>
+                 <td>{{ locker.locker_size.hourly_rate }} €/hour</td>
+                 {% if locker.is_available %}
+                    <td style="color: green">Available</td>
+                {% else %}
+                    <td style="color: red">Occupied</td>
+                {% endif %}"
+                <td><a href="{% url 'locker_selection' location_slug=location.location_slug locker_size_id=locker.locker_size.id%}">Select</a></td>
+             </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    
+{% endblock %}
