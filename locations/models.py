@@ -43,6 +43,7 @@ class Locker(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     locker_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
+    is_locked = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Locker #{self.locker_number} ({self.locker_size.size_name})"
@@ -52,7 +53,8 @@ class Rental(models.Model):
     locker = models.ForeignKey(Locker, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)
+    is_rented = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Locker #{self.locker.locker_number} ({self.locker.locker_size.size_name})"
