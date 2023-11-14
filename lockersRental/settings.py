@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'user.apps.UserConfig',
     'locations.apps.LocationsConfig',
-
+    'rental.apps.RentalConfig',
 ]
 
 MIDDLEWARE = [
