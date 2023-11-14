@@ -55,6 +55,7 @@ class Rental(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField(null=True, blank=True)
     is_rented = models.BooleanField(default=True)
+    duration = models.DurationField(null=True, blank=True)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
