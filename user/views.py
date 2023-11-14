@@ -1,14 +1,17 @@
+import datetime
+
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 
+import locations.models
+import rental.utils
 from user.forms import RegisterForm, BillingAddressForm, BillingInfoForm
 
 
 @login_required
 def index(request):
-
     return render(request, 'user/index.html', {})
 
 
@@ -132,4 +135,27 @@ def delete_billing(request, billing_id):
 
 @login_required
 def rented_lockers(request):
-    return render(request, 'user/rented_lockers.html', {})
+    # Get the search parameters
+    location = request.GET.get('location', '')
+
+    # Get all rentals for the current user
+    all_rentals = locations.models.Rental.objects.filter(user=request.user)
+
+    # Get unique Location objects
+    all_locations = locations.models.Location.objects.filter(locker__rental__in=all_rentals).distinct()
+
+    # If location is provided, filter by location
+    if location:
+        all_rentals = all_rentals.filter(locker__location=location)
+
+    # Separate into current and past rentals
+    current_rentals = all_rentals.filter(is_rented=True)
+    for one_rental in current_rentals:
+        one_rental.total_sum, one_rental.duration = rental.utils.calculate_rental_sum(one_rental.start_time,
+                                                                                      datetime.datetime.now(),
+                                                                                      one_rental.locker.locker_size.hourly_rate)
+
+    past_rentals = all_rentals.filter(is_rented=False)
+
+    return render(request, "user/user_rentals.html",
+                  {"current_rentals": current_rentals, "past_rentals": past_rentals, "locations": all_locations})
