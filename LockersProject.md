@@ -27,6 +27,7 @@ DB:
     - email
     - description
     - is_active
+    - API_URL
   
 - Locker sizes table
     - id
@@ -42,16 +43,16 @@ DB:
     - location_id
     - locker_number
     - is_available
-
-- Locker status table ?
-    - id
-    - status_name
+    - is_locked
 
 - Rental table
     - Start time
     - End time
     - user_id
     - locker_id
+    - is_rented
+    - duration
+    - total_sum
 
 
 - Users table
@@ -59,39 +60,60 @@ DB:
     - email
     - username
     - mobile_phone
+
 - User billing address
     - id
+    - user_id
     - country
     - city
     - street
     - house_number
     - zip_code
+
 - User billing info
     - id
     - user_id
     - billing_address_id
     - card_number
-    - card_holder
-    - card_expiration_date
-    - card_cvv
+    - expiration_year
+    - expiration_month
+    - cvv
 
 
 Endpoints:
 
 "/" - Homepage (GET)
 
-"/<site_name>" - Site page (GET)
+"/locations" - Locations list (GET)
 
-"/<site_name>/available" - Available locker sizes on-site (GET)
+"/locations/<location_slug>" - Location page with Available locker sizes on-site (GET)
 
-"/<site_name>/close?size_id" - Close chosen locker and start rent (POST)
+"/locations/<location_slug>/selection/<locker_size_id>" - Select locker size (GET, POST)
 
-"/<site_name>/open?size_id" - Open chosen locker and finish rent (POST)
 
-"/<site_name>/selection" - Get proposal based on luggage sizes (GET)
+"/<rental_id>" - Rental page (GET)
+
+"/<rental_id>/close?size_id" - Close chosen locker (POST)
+
+"/<rental_id>/open?size_id" - Open chosen locker (POST)
+
+"/<rental_id>/end" - End rent (GET)
+
 
 "/user" - user page (GET)
 
-"/user/my_lockers" - Rented lockers (GET)
+"/user/login" - Login page (GET, POST)
+
+"/user/logout" - Logout (GET)
+
+"/user/register" - Register page (GET, POST)
+
+"/user/rented_lockers" - Rented lockers by user (GET)
+
+"/user/billing_address" - Get/add billing address (GET, POST)
+
+"/user/billing_address/delete/<billing_address_id>" - Delete billing address (POST)
 
 "/user/billing" - Get/add billing info (GET, POST)
+
+"/user/billing/delete/<billing_id>" - Delete billing info (POST)
