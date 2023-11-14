@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}My Rentals{% endblock %}
+
+{% block content %}
+<form method="GET" action="">
+    <select name="location">
+        <option value="">All locations</option>
+        {% for loc in locations %}
+        <option value="{{ loc.id }}">{{ loc.location_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Search">
+</form>
+
+<h1>Current Rentals</h1>
+{% for rental in current_rentals %}
+    <p>Locker № {{ rental.locker.locker_number }} at {{ rental.locker.location }}</p>
+    <p>Start Time: {{ rental.start_time }}</p>
+    <p>Duration: {{ rental.duration }} hours</p>
+    <p>Current amount: €{{ rental.total_sum }}</p>
+    <a href="{% url 'rental' rental.id %}">Manage Rental</a>
+{% empty %}
+    <p>No current rentals.</p>
+{% endfor %}
+
+<h1>Past Rentals</h1>
+{% for rental in past_rentals %}
+    <p>Locker № {{ rental.locker.locker_number }} at {{ rental.locker.location }} from {{ rental.start_time }} to {{ rental.end_time }}</p>
+    <p>Duration: {{ rental.duration }} hours</p>
+    <p>Total Sum: €{{ rental.total_sum }}</p>
+{% empty %}
+    <p>No past rentals.</p>
+{% endfor %}
+{% endblock %}
