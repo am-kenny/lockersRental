@@ -24,8 +24,8 @@
             </div>
             <div class="header__menu">
                 <a class="header__menu__button" href="{% url 'locations' %}">locations</a>
-                <a class="header__menu__button" href="">pricing</a>
-                <a class="header__menu__button" href="">contact</a>
+{#                <a class="header__menu__button" href="">pricing</a>#}
+{#                <a class="header__menu__button" href="">contact</a>#}
                 
                 {% if  user.is_authenticated%}
                     <a class="header__menu__button__user" href="{% url 'user_page' %}">
