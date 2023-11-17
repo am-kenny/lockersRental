@@ -149,13 +149,13 @@ def rented_lockers(request):
         all_rentals = all_rentals.filter(locker__location=location)
 
     # Separate into current and past rentals
-    current_rentals = all_rentals.filter(is_rented=True)
+    current_rentals = all_rentals.filter(is_active=True)
     for one_rental in current_rentals:
         one_rental.total_sum, one_rental.duration = rental.utils.calculate_rental_sum(one_rental.start_time,
                                                                                       datetime.datetime.now(),
                                                                                       one_rental.locker.locker_size.hourly_rate)
 
-    past_rentals = all_rentals.filter(is_rented=False)
+    past_rentals = all_rentals.filter(is_active=False)
 
     return render(request, "user/user_rentals.html",
                   {"current_rentals": current_rentals, "past_rentals": past_rentals, "locations": all_locations})

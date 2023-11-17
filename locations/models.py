@@ -54,7 +54,7 @@ class Rental(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField(null=True, blank=True)
-    is_rented = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     duration = models.IntegerField(null=True, blank=True)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
