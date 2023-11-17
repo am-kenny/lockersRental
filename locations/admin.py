@@ -29,8 +29,6 @@ def sync_location_lockers(request, pk):
                 locker_query.update(
                     locker_size=size,
                     location=location,
-                    locker_number=locker["locker_number"],
-                    is_available=True
                 )
             else:
                 models.Locker.objects.create(

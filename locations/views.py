@@ -5,7 +5,7 @@ import locations.models
 
 
 def index(request):
-    all_locations = locations.models.Location.objects.all()
+    all_locations = locations.models.Location.objects.filter(is_active=True).all()
     return render(request, "locations/index.html", {"locations": all_locations})
 
 
