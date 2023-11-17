@@ -57,6 +57,7 @@ class Rental(models.Model):
     is_active = models.BooleanField(default=True)
     duration = models.IntegerField(null=True, blank=True)
     total_sum = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Locker #{self.locker.locker_number} ({self.locker.locker_size.size_name})"
