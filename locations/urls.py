@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='locations'),
     path('<location_slug>', views.location_page, name='location'),
     path('<location_slug>/selection/<locker_size_id>', views.select_locker, name='locker_selection'),
+    path('<location_slug>/auto', views.auto_selection, name='auto_selection'),
 ]

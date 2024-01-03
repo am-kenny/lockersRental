@@ -58,3 +58,8 @@ def select_locker(request, location_slug, locker_size_id):
         "is_available": is_available,
 
         "error": error}, status=200)
+
+
+def auto_selection(request, location_slug):
+    # if request.method == "POST":
+    return render(request, "locations/auto_selection.html")
