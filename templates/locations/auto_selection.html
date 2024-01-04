@@ -5,70 +5,90 @@
 {% block content %}
     <h1>Locker auto selection</h1>
     <p>Location: {{ location }}</p>
-    <form class="luggage__form" id="luggageForm">
+    <form method="post" class="luggage__form">
+        {% csrf_token %}
         <label>
             Width:
-            <input id="luggageWidth" type="number">
+            <input name="width" type="number">
         </label>
         <label>
             Height:
-            <input id="luggageHeight" type="number">
+            <input name="height" type="number">
         </label>
         <label>
             Length:
-            <input id="luggageLength" type="number">
+            <input name="length" type="number">
         </label>
         <input type="submit" value="Submit">
     </form>
-    <div id="luggageContainer">
-
-    </div>
-    <script>
-        const luggageContainer = document.getElementById("luggageContainer");
-
-        const allLuggage = []
-        let luggageCount = 0
-
-        function addLuggage() {
-            const luggageData = {
-                width: document.getElementById("luggageWidth").value,
-                height: document.getElementById("luggageHeight").value,
-                length: document.getElementById("luggageLength").value
-            }
-
-            if (luggageData.width > 0 && luggageData.height > 0 && luggageData.length > 0) {
-                if (luggageCount === 0) {
-                    const submitLuggage = document.createElement("button")
-                    submitLuggage.innerHTML = "Submit luggage"
-                    document.body.appendChild(submitLuggage)
-                }
-
-                luggageCount++
-
-                const luggage = document.createElement("div")
-                luggage.className = "luggage"
-                luggage.innerHTML = "Luggage" + luggageCount
-                const widthP = document.createElement("p")
-                widthP.innerHTML = "Width: " + luggageData.width
-                const heightP = document.createElement("p")
-                heightP.innerHTML = "Height: " + luggageData.height
-                const lengthP = document.createElement("p")
-                lengthP.innerHTML = "Length: " + luggageData.length
-                luggage.appendChild(widthP)
-                luggage.appendChild(heightP)
-                luggage.appendChild(lengthP)
-
-                luggageContainer.appendChild(luggage)
-                allLuggage.push(luggageData)
-                console.log(allLuggage)
-            } else {
-                alert("Please enter valid dimensions")
-            }
-        }
-
-        document.getElementById("luggageForm").addEventListener("submit", function (event) {
-            event.preventDefault()
-            addLuggage()
-        });
-    </script>
+    
+    
+    
+{#    Content is being made for multiple luggage units#}
+{#    <form class="luggage__form" id="luggageForm">#}
+{#        <label>#}
+{#            Width:#}
+{#            <input id="luggageWidth" type="number">#}
+{#        </label>#}
+{#        <label>#}
+{#            Height:#}
+{#            <input id="luggageHeight" type="number">#}
+{#        </label>#}
+{#        <label>#}
+{#            Length:#}
+{#            <input id="luggageLength" type="number">#}
+{#        </label>#}
+{#        <input type="submit" value="Submit">#}
+{#    </form>#}
+{#    <div id="luggageContainer">#}
+{##}
+{#    </div>#}
+{#    <script>#}
+{#        const luggageContainer = document.getElementById("luggageContainer");#}
+{##}
+{#        const allLuggage = []#}
+{#        let luggageCount = 0#}
+{##}
+{#        function addLuggage() {#}
+{#            const luggageData = {#}
+{#                width: document.getElementById("luggageWidth").value,#}
+{#                height: document.getElementById("luggageHeight").value,#}
+{#                length: document.getElementById("luggageLength").value#}
+{#            }#}
+{##}
+{#            if (luggageData.width > 0 && luggageData.height > 0 && luggageData.length > 0) {#}
+{#                if (luggageCount === 0) {#}
+{#                    const submitLuggage = document.createElement("button")#}
+{#                    submitLuggage.innerHTML = "Submit luggage"#}
+{#                    document.body.appendChild(submitLuggage)#}
+{#                }#}
+{##}
+{#                luggageCount++#}
+{##}
+{#                const luggage = document.createElement("div")#}
+{#                luggage.className = "luggage"#}
+{#                luggage.innerHTML = "Luggage" + luggageCount#}
+{#                const widthP = document.createElement("p")#}
+{#                widthP.innerHTML = "Width: " + luggageData.width#}
+{#                const heightP = document.createElement("p")#}
+{#                heightP.innerHTML = "Height: " + luggageData.height#}
+{#                const lengthP = document.createElement("p")#}
+{#                lengthP.innerHTML = "Length: " + luggageData.length#}
+{#                luggage.appendChild(widthP)#}
+{#                luggage.appendChild(heightP)#}
+{#                luggage.appendChild(lengthP)#}
+{##}
+{#                luggageContainer.appendChild(luggage)#}
+{#                allLuggage.push(luggageData)#}
+{#                console.log(allLuggage)#}
+{#            } else {#}
+{#                alert("Please enter valid dimensions")#}
+{#            }#}
+{#        }#}
+{##}
+{#        document.getElementById("luggageForm").addEventListener("submit", function (event) {#}
+{#            event.preventDefault()#}
+{#            addLuggage()#}
+{#        });#}
+{#    </script>#}
 {% endblock %}

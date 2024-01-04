@@ -2,6 +2,7 @@ import datetime
 
 from django.shortcuts import render, redirect
 import locations.models
+from locations.utils import fit_in_locker
 
 
 def index(request):
@@ -61,5 +62,27 @@ def select_locker(request, location_slug, locker_size_id):
 
 
 def auto_selection(request, location_slug):
-    # if request.method == "POST":
+    location_query = locations.models.Location.objects.filter(location_slug=location_slug)
+    if not location_query.exists():
+        return render(request, "not_found.html")
+
+    location = location_query.first()
+
+
+
+    if request.method == "POST":
+        try:
+            width = int(request.POST.get("width"))
+            height = int(request.POST.get("height"))
+            length = int(request.POST.get("length"))
+        except ValueError:
+            return render(request, "locations/auto_selection.html", {"error": "Please enter valid dimensions"})
+        locker_types = location.locker_set.filter(is_available=True).all().distinct("locker_size")
+        lockers_to_choose = []
+        for locker in locker_types:
+            isLocker = fit_in_locker(locker.locker_size, {"width": width, "height": height, "length": length})
+            if isLocker:
+                lockers_to_choose.append(locker)
+        print(lockers_to_choose)
+        return render(request, "locations/auto_selection_lockers.html", {"lockers": lockers_to_choose})
     return render(request, "locations/auto_selection.html")

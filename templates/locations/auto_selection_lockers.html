@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Selection{% endblock %}
+
+{% block content %}
+    <h1>Locker auto selection</h1>
+    <p>Lockers to choose</p>
+    {% for locker in lockers%}
+        <p>Locker: {{ locker.locker_size }}</p>
+    {% endfor %}
+{% endblock %}
